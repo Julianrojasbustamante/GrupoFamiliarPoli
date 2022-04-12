@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GrupoFamiliarPoli.Models.DataBase;
+using GrupoFamiliarPoli.Models.Response;
 
 namespace GrupoFamiliarPoli.Controllers
 {
@@ -26,20 +27,17 @@ namespace GrupoFamiliarPoli.Controllers
         [ResponseType(typeof(grupo_familiar))]
         public IHttpActionResult Getgrupo_familiar(int id)
         {
-            var query = (from a in db.pacientes
-                         where a.id_paciente == id
-                         select a).FirstOrDefault();
-            if (query != null)
-            {
-
-            }
-            grupo_familiar grupo_familiar = db.grupo_familiar.Find(id);
-            if (grupo_familiar == null)
-            {
+            pacientes paciente = db.pacientes.Find(id);
+            if (paciente == null)
                 return NotFound();
-            }
-
-            return Ok(grupo_familiar);
+            List<grupo_familiar> grupo_familiar = db.grupo_familiar.Where(a => a.id_paciente == id).ToList();
+            if (grupo_familiar == null)
+                return NotFound();
+            ProccessResponse proccessResponse = new ProccessResponse{ 
+                grupo_familiar = grupo_familiar,
+                paciente = paciente
+            };
+            return Ok(proccessResponse);
         }
 
         // PUT: api/grupo_familiar/5
