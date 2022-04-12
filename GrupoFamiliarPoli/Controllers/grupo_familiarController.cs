@@ -24,7 +24,7 @@ namespace GrupoFamiliarPoli.Controllers
         }
 
         // GET: api/grupo_familiar/5
-        [ResponseType(typeof(grupo_familiar))]
+        [ResponseType(typeof(ProccessResponse))]
         public IHttpActionResult Getgrupo_familiar(int id)
         {
             pacientes paciente = db.pacientes.Find(id);
@@ -76,18 +76,18 @@ namespace GrupoFamiliarPoli.Controllers
         }
 
         // POST: api/grupo_familiar
-        [ResponseType(typeof(grupo_familiar))]
-        public IHttpActionResult Postgrupo_familiar(grupo_familiar grupo_familiar)
+        [ResponseType(typeof(List<grupo_familiar>))]
+        public IHttpActionResult Postgrupo_familiar(List<grupo_familiar> grupo_familiar)
         {
-            if (!ModelState.IsValid)
-            {
+            pacientes paciente = db.pacientes.Find(grupo_familiar[0].id_paciente);
+            if (paciente == null)
                 return BadRequest(ModelState);
-            }
-
-            db.grupo_familiar.Add(grupo_familiar);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            db.grupo_familiar.AddRange(grupo_familiar);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = grupo_familiar.id_familiar }, grupo_familiar);
+            return CreatedAtRoute("DefaultApi", new { id = grupo_familiar[0].id_paciente }, grupo_familiar);
         }
 
         // DELETE: api/grupo_familiar/5
