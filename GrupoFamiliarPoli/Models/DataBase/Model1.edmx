@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="hospitalpoliModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="id_estado" />
+          </Key>
+          <Property Name="id_estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_estado" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="grupo_familiar">
+          <Key>
+            <PropertyRef Name="id_familiar" />
+          </Key>
+          <Property Name="id_familiar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_paciente" Type="uint" Nullable="false" />
+          <Property Name="nom_familiar" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="num_telefono" Type="int" />
+          <Property Name="num_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="fecha_ultima_visita" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pacientes">
+          <Key>
+            <PropertyRef Name="id_paciente" />
+          </Key>
+          <Property Name="id_paciente" Type="uint" Nullable="false" />
+          <Property Name="estado" Type="tinyint" Nullable="false" />
+          <Property Name="nom_paciente" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="date" />
+          <Property Name="fecha_creacion" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_actualizacion" Type="timestamp" Precision="0" />
+          <Property Name="num_dni" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="hospitalpoliModelStoreContainer">
+          <EntitySet Name="estado" EntityType="Self.estado" Schema="hospitalpoli" store:Type="Tables" />
+          <EntitySet Name="grupo_familiar" EntityType="Self.grupo_familiar" Schema="hospitalpoli" store:Type="Tables" />
+          <EntitySet Name="pacientes" EntityType="Self.pacientes" Schema="hospitalpoli" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hospitalpoliModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="id_estado" />
+          </Key>
+          <Property Name="id_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="grupo_familiar">
+          <Key>
+            <PropertyRef Name="id_familiar" />
+          </Key>
+          <Property Name="id_familiar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_paciente" Type="Int64" Nullable="false" />
+          <Property Name="nom_familiar" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="num_telefono" Type="Int32" />
+          <Property Name="num_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_ultima_visita" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="pacientes">
+          <Key>
+            <PropertyRef Name="id_paciente" />
+          </Key>
+          <Property Name="id_paciente" Type="Int64" Nullable="false" />
+          <Property Name="estado" Type="SByte" Nullable="false" />
+          <Property Name="nom_paciente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" />
+          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_actualizacion" Type="DateTime" />
+          <Property Name="num_dni" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="hospitalpoliEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="estado" EntityType="Self.estado" />
+          <EntitySet Name="grupo_familiar" EntityType="Self.grupo_familiar" />
+          <EntitySet Name="pacientes" EntityType="Self.pacientes" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hospitalpoliModelStoreContainer" CdmEntityContainer="hospitalpoliEntities1">
+          <EntitySetMapping Name="estado">
+            <EntityTypeMapping TypeName="hospitalpoliModel.estado">
+              <MappingFragment StoreEntitySet="estado">
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="nom_estado" ColumnName="nom_estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grupo_familiar">
+            <EntityTypeMapping TypeName="hospitalpoliModel.grupo_familiar">
+              <MappingFragment StoreEntitySet="grupo_familiar">
+                <ScalarProperty Name="id_familiar" ColumnName="id_familiar" />
+                <ScalarProperty Name="id_paciente" ColumnName="id_paciente" />
+                <ScalarProperty Name="nom_familiar" ColumnName="nom_familiar" />
+                <ScalarProperty Name="num_telefono" ColumnName="num_telefono" />
+                <ScalarProperty Name="num_id" ColumnName="num_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fecha_ultima_visita" ColumnName="fecha_ultima_visita" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pacientes">
+            <EntityTypeMapping TypeName="hospitalpoliModel.pacientes">
+              <MappingFragment StoreEntitySet="pacientes">
+                <ScalarProperty Name="id_paciente" ColumnName="id_paciente" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nom_paciente" ColumnName="nom_paciente" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="fecha_actualizacion" ColumnName="fecha_actualizacion" />
+                <ScalarProperty Name="num_dni" ColumnName="num_dni" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
